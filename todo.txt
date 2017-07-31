@@ -1,0 +1,15 @@
+
+
+link up model uploading feature and page to this viewer
+
+dynamically load urn by first injecting it into the page html (templating) and then getting it back out into client side js (index.js)
+
+remove autodesk logo shit
+
+//implement new html page for uploading model
+
+//render the current index.html as a template and inject the urn to be displayed. get the urn by getelementid() when running init scripts
+
+//write new poleManifest function as a promise! resolve the promise if the model status is inprogress or pending reject if failed, resolve success if success
+
+//write a new checkManifest fucnction which calls poleManifest, if the promise is resolved as pending then check again, if its rejected then error out.

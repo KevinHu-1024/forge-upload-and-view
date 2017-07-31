@@ -1,0 +1,26 @@
+{
+  "name": "viewer-nodejs-tutorial",
+  "version": "1.0.0",
+  "description": "Getting Started with Viewer and NodeJS",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Autodesk-Forge/viewer-nodejs-tutorial.git"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "font-awesome": "^4.7.0",
+    "request": "^2.72.0",
+    "serve-favicon": "^2.3.0"
+  },
+  "author": "Jaime Rosales",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Autodesk-Forge/viewer-nodejs-tutorial/issues"
+  },
+  "homepage": "https://github.com/Autodesk-Forge/viewer-nodejs-tutorial#readme"
+}
