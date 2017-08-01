@@ -13,3 +13,6 @@ remove autodesk logo shit
 //write new poleManifest function as a promise! resolve the promise if the model status is inprogress or pending reject if failed, resolve success if success
 
 //write a new checkManifest fucnction which calls poleManifest, if the promise is resolved as pending then check again, if its rejected then error out.
+
+
+

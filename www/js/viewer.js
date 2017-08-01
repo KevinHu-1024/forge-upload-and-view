@@ -23,6 +23,8 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 var tokenurl = window.location.protocol + '//' + window.location.host + '/oauth/token';
+var urnurl = window.location.protocol + '//' + window.location.host + '/urn';
+
 function tokenAjax() {
       return $.ajax({
           url:tokenurl,
@@ -30,7 +32,19 @@ function tokenAjax() {
       });
 }
 
-//possibley add second ajax cal to get current 
+function urnAjax() {
+    return $.ajax({
+      url:urnurl,
+      dataType: 'json'
+    });
+}
+
+var getUrn = urnAjax();
+
+getUrn.success(function (data) {
+  documentId = data.urn;
+  console.log('documentId: ', urn);
+});
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -40,7 +54,7 @@ function tokenAjax() {
 
 var viewer;
 var options = {};
-var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cGVybS1zYW1wbGUtYnVja2V0d3F1eGdhZWl2Y2d0Y2gybG1tYWJtZ3JoZ2Z6cXNhdjMvY3Vwb2xleC5TVEVQ';
+//var documentId = 'urn:dXJuOmFkc2sub2JqZWN0czpvcy5vYmplY3Q6cGVybS1zYW1wbGUtYnVja2V0d3F1eGdhZWl2Y2d0Y2gybG1tYWJtZ3JoZ2Z6cXNhdjMvY3Vwb2xleC5TVEVQ';
 var promise = tokenAjax();
 
 promise.success(function (data) {

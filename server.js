@@ -22,9 +22,14 @@ var express = require('express');
 var  hbs = require('hbs');
 var multer = require('multer');
 var path = require('path');
+var fs = require('fs');
+
 //imports
 var oauth = require('./routes/oauth');
 var uploadPath = path.join(__dirname, '../www/uploads');
+var forge = require('./forge');
+
+var app = express();
 
 //multer setting
 var storage = multer.diskStorage({
@@ -37,13 +42,9 @@ var storage = multer.diskStorage({
 });
 var upload = multer({ storage: storage });  
 
-
-var app = express();
-
 app.set('port', process.env.PORT || 3000);
 app.use('/', express.static(__dirname + '/www'));
 //app.use(favicon(__dirname + '/www/images/favicon.ico'));
-
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
 app.set('views', __dirname + '/views');
@@ -62,15 +63,25 @@ app.post('/', upload.single('file'), function (req, res, next) {
     var uploadFile = req.file.filename;
     var uploadPath = req.file.path;
 
-  console.log('**** Multer uploading file: ' + req.file.filename);
-  console.log('**** Multer uploading to: ' + req.file.path);
-    res.send('uploaded!');
+    console.log('**** Multer uploading file: ' + req.file.filename);
+    console.log('**** Multer uploading to: ' + req.file.path);
+
+    forge.process(uploadFile, uploadPath);
+    
 });
 
 
 //Get viewer 
 app.get('/view', function (req, res) {
-    res.render('viewer', {});
+
+    var urn = forge.viewDetails.urn;
+
+    res.render('viewer', {'urn': urn});
+});
+
+app.get('/urn', function (req, res) {
+    var obj = JSON.parse(fs.readFileSync('./savedUrn.json', 'utf8'));
+    res.send(obj);
 });
 
 //----------------------------------------------------------------------------------
