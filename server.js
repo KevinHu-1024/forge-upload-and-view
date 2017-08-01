@@ -80,6 +80,13 @@ app.get('/view', function (req, res) {
 });
 
 app.get('/urn', function (req, res) {
+    // fs.readFileSync('./savedUrn.json', 'utf-8', function (err, data) {
+    //     if (err) throw err;
+    //     return obj = JSON.parse(data);
+    // });
+    // console.log('sending urn: ', obj);
+
+    // res.sendStatus(200).send(obj);
     var obj = JSON.parse(fs.readFileSync('./savedUrn.json', 'utf8'));
     res.send(obj);
 });

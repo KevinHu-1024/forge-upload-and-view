@@ -2,3 +2,4 @@ credentials.js
 node_modules
 .vscode/
 uploads/
+viewer3D.js
