@@ -17,13 +17,36 @@
 /////////////////////////////////////////////////////////////////////////////////
 
 //var favicon = require('serve-favicon');
-var oauth = require('./routes/oauth');
+//libs
 var express = require('express');
+var  hbs = require('hbs');
+var multer = require('multer');
+var path = require('path');
+//imports
+var oauth = require('./routes/oauth');
+var uploadPath = path.join(__dirname, '../www/uploads');
+
+//multer setting
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+});
+var upload = multer({ storage: storage });  
+
+
 var app = express();
 
 app.set('port', process.env.PORT || 3000);
 app.use('/', express.static(__dirname + '/www'));
 //app.use(favicon(__dirname + '/www/images/favicon.ico'));
+
+app.set('view engine', 'html');
+app.engine('html', require('hbs').__express);
+app.set('views', __dirname + '/views');
 
 // /////////////////////////////////////////////////////////////////////////////////
 // //
@@ -32,6 +55,28 @@ app.use('/', express.static(__dirname + '/www'));
 // /////////////////////////////////////////////////////////////////////////////////
 
 app.use('/oauth', oauth);
+
+//----------------------------------------------------------------------------------
+//upload route
+app.post('/', upload.single('file'), function (req, res, next) {
+    var uploadFile = req.file.filename;
+    var uploadPath = req.file.path;
+
+  console.log('**** Multer uploading file: ' + req.file.filename);
+  console.log('**** Multer uploading to: ' + req.file.path);
+    res.send('uploaded!');
+});
+
+
+//Get viewer 
+app.get('/view', function (req, res) {
+    res.render('viewer', {});
+});
+
+//----------------------------------------------------------------------------------
+
 var server = app.listen(app.get('port'), function() {
     console.log('Server listening on port ' + server.address().port);
 });
+
+//route to view model here
